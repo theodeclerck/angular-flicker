@@ -1,0 +1,8 @@
+<div class="container-fluid d-flex justify-content-center mt-5" style="overflow-y: auto">
+  <div class="d-flex flex-wrap justify-content-around">
+    <div *ngFor="let img of apiresult" class="col-4 d-flex justify-content-center align-items-center hoverImg" style="cursor: pointer" (click)="openPopUp(img.id,img.secret)">
+      <img src="https://live.staticflickr.com/{{img.server}}/{{img.id}}_{{img.secret}}.jpg" style="width: auto;height: auto;max-width: 80%;max-height: 80%">
+    </div>
+  </div>
+</div>
+<app-pop-up [popUpData]="imgsInfos"></app-pop-up>

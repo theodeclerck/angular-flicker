@@ -1,0 +1,75 @@
+<div class="container-fluid d-flex justify-content-center mt-5">
+  <form [formGroup]="flickerFilter" (ngSubmit)="onSubmit(flickerFilter.value)">
+    <div class="d-flex align-items-end">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="text">Search for images</label>
+          <input type="search" class="form-control" name="text" id="text" placeholder="Search" [formControl]="flickerFilter.controls['text']">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="sort">Sort</label>
+          <select id="sort" name="sort" class="form-control" [formControl]="flickerFilter.controls['sort']">
+            <option selected value="date-posted-asc">date asc</option>
+            <option value="date-posted-desc">date desc</option>
+            <option value="date-taken-asc">date taken asc</option>
+            <option value="date-taken-desc">date taken desc</option>
+            <option value="interestingness-desc">interestingness desc</option>
+            <option value="interestingness-asc">interestingness asc</option>
+            <option value="relevance">relevance</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="tags">Tags of the day</label>
+          <select id="tags" name="tags" class="form-control" size="3" multiple [formControl]="flickerFilter.controls['tags']">
+            <option *ngFor="let tag of hotTags">{{tag._content}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="minUploadDate">Date upload min</label>
+          <input type="date" class="form-control" name="minUploadDate" id="minUploadDate" placeholder="date Min" [formControl]="flickerFilter.controls['minUploadDate']">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="maxUploadDate">Date upload max</label>
+          <input type="date" class="form-control" name="maxUploadDate" id="maxUploadDate" placeholder="date Max" [formControl]="flickerFilter.controls['maxUploadDate']">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="minTakenDate">Date taken min</label>
+          <input type="date" class="form-control" name="minTakenDate" id="minTakenDate" placeholder="date Min" [formControl]="flickerFilter.controls['minTakenDate']">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="maxTakenDate">Date taken max</label>
+          <input type="date" class="form-control" name="maxTakenDate" id="maxTakenDate" placeholder="date Max" [formControl]="flickerFilter.controls['maxTakenDate']">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="nsfw">Safe Search</label>
+          <select class="form-control" name="nsfw" id="nsfw" [formControl]="flickerFilter.controls['nsfw']">
+            <option selected value="1">Safe</option>
+            <option value="2">Moderate</option>
+            <option value="3">Restricted</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary w-75" [disabled]="!flickerFilter.valid" style="height: fit-content">Submit</button>
+    </div>
+  </form>
+</div>
+<div class="paginationId hidden d-flex justify-content-center mt-5">
+  <nav>
+    <ul class="pagination">
+      <li *ngIf="pageInfos && pageInfos.photos.page !== 1" class="page-item"><a class="page-link" href="#" (click)="paginationSearch(false)">Previous</a></li>
+      <li *ngIf="pageInfos && pageInfos.photos.page !== pageInfos.photos.pages" class="page-item"><a class="page-link" href="#" (click)="paginationSearch(true)">Next</a></li>
+    </ul>
+  </nav>
+</div>
+<app-grid [apiresult]="imgsArray"></app-grid>
+<div class="paginationId hidden d-flex justify-content-center mt-5">
+  <nav>
+    <ul class="pagination">
+      <li *ngIf="pageInfos && pageInfos.photos.page !== 1" class="page-item"><a class="page-link" href="#" (click)="paginationSearch(false)">Previous</a></li>
+      <li *ngIf="pageInfos && pageInfos.photos.page !== pageInfos.photos.pages" class="page-item"><a class="page-link" href="#" (click)="paginationSearch(true)">Next</a></li>
+    </ul>
+  </nav>
+</div>
+
